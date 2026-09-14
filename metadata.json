@@ -1,0 +1,6 @@
+{
+  "name": "SN Digital Academy Portfolio",
+  "description": "A responsive image gallery to display a portfolio of 88 premium flyer designs.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
