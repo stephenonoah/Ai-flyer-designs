@@ -2,8 +2,8 @@ import { useState } from 'react';
 import { FlyerCard } from './components/FlyerCard';
 import { Lightbox } from './components/Lightbox';
 
-// Dynamically generate 88 flyer image URLs
-const flyers = Array.from({ length: 88 }, (_, i) =>
+// Dynamically generate 91 flyer image URLs
+const flyers = Array.from({ length: 91 }, (_, i) =>
   `https://res.cloudinary.com/ducmb5htf/image/upload/v1789384565/flyers_${i + 1}.png`
 );
 
