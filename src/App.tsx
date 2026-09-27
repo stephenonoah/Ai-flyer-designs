@@ -2,9 +2,9 @@ import { useState } from 'react';
 import { FlyerCard } from './components/FlyerCard';
 import { Lightbox } from './components/Lightbox';
 
-// Dynamically generate 91 flyer image URLs
+// Dynamically generate 91 flyer image URLs with Cloudinary auto-optimization applied
 const flyers = Array.from({ length: 91 }, (_, i) =>
-  `https://res.cloudinary.com/ducmb5htf/image/upload/v1789384565/flyers_${i + 1}.png`
+  `https://res.cloudinary.com/ducmb5htf/image/upload/f_auto,q_auto/v1789384565/flyers_${i + 1}.png`
 );
 
 export default function App() {
