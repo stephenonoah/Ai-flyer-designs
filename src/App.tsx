@@ -5,7 +5,7 @@ import { Lightbox } from './components/Lightbox';
 const CLOUDFRONT_URL = 'https://d1ok5pur9e1r6c.cloudfront.net';
 
 const flyers = Array.from({ length: 98 }, (_, i) =>
-  `${CLOUDFRONT_URL}/flyer%20(${i + 1}).png`
+  `${CLOUDFRONT_URL}/flyer%20(${i + 1}).webp`
 );
 
 export default function App() {
