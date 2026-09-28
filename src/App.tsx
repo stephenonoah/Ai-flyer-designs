@@ -2,13 +2,27 @@ import { useState } from 'react';
 import { FlyerCard } from './components/FlyerCard';
 import { Lightbox } from './components/Lightbox';
 
-// Dynamically generate 91 flyer image URLs with Cloudinary auto-optimization applied
-const flyers = Array.from({ length: 91 }, (_, i) =>
-  `https://res.cloudinary.com/ducmb5htf/image/upload/f_auto,q_auto/v1789384565/flyers_${i + 1}.png`
+const CLOUDFRONT_URL = 'https://d1ok5pur9e1r6c.cloudfront.net';
+
+const flyers = Array.from({ length: 98 }, (_, i) =>
+  `${CLOUDFRONT_URL}/flyer%20(${i + 1}).png`
 );
 
 export default function App() {
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  // Track the index (0 to 97) instead of the raw URL
+  const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+
+  const handleNext = () => {
+    if (selectedIndex !== null && selectedIndex < flyers.length - 1) {
+      setSelectedIndex(selectedIndex + 1);
+    }
+  };
+
+  const handlePrev = () => {
+    if (selectedIndex !== null && selectedIndex > 0) {
+      setSelectedIndex(selectedIndex - 1);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-[#0b0f19] text-white p-4 sm:p-6 md:p-8 font-sans selection:bg-indigo-500/30">
@@ -27,14 +41,19 @@ export default function App() {
             key={url}
             url={url}
             index={index}
-            onClick={() => setSelectedImage(url)}
+            // Pass the index to state when clicked
+            onClick={() => setSelectedIndex(index)}
           />
         ))}
       </main>
 
       <Lightbox
-        imageUrl={selectedImage}
-        onClose={() => setSelectedImage(null)}
+        imageUrl={selectedIndex !== null ? flyers[selectedIndex] : null}
+        onClose={() => setSelectedIndex(null)}
+        onNext={handleNext}
+        onPrev={handlePrev}
+        hasNext={selectedIndex !== null && selectedIndex < flyers.length - 1}
+        hasPrev={selectedIndex !== null && selectedIndex > 0}
       />
     </div>
   );
