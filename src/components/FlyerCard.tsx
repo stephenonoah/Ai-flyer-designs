@@ -8,7 +8,6 @@ interface FlyerCardProps {
 }
 
 export function FlyerCard({ url, index, onClick }: FlyerCardProps) {
-  // Track whether the heavy S3 image has finished downloading
   const [isLoaded, setIsLoaded] = useState(false);
 
   return (
@@ -17,10 +16,12 @@ export function FlyerCard({ url, index, onClick }: FlyerCardProps) {
       whileHover={{ scale: 1.02 }}
       onClick={onClick}
     >
-      {/* min-h-[300px] holds the layout steady so cards don't jump around before the image gets its actual height */}
-      <div className="relative overflow-hidden rounded-lg bg-[#0b0f19] min-h-[300px]">
+      {/* 
+        FIX: The min-h-[300px] and bg color only apply while loading (!isLoaded). 
+        Once the image loads, they are removed, eliminating the gap. 
+      */}
+      <div className={`relative overflow-hidden rounded-lg ${!isLoaded ? 'bg-[#0b0f19] min-h-[300px]' : ''}`}>
         
-        {/* Shimmer Skeleton Placeholder: Shows a pulsing grey box until isLoaded is true */}
         {!isLoaded && (
           <div className="absolute inset-0 z-10 bg-gray-800 animate-pulse" />
         )}
@@ -28,9 +29,7 @@ export function FlyerCard({ url, index, onClick }: FlyerCardProps) {
         <img
           src={url}
           alt={`Flyer Design ${index + 1}`}
-          // Trigger the state change once the network finishes downloading the file
           onLoad={() => setIsLoaded(true)}
-          // Eager load the first 4 images immediately, lazy load the rest
           loading={index < 4 ? 'eager' : 'lazy'}
           decoding="async"
           className={`w-full h-auto transition-all duration-500 group-hover:scale-105 ${
